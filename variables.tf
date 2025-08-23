@@ -48,13 +48,3 @@ variable "runner_token" {
   description = "GitHub Runner Token"
   sensitive = true
 }
-
-variable "user_data" {
-  description = "User data script to run on server startup"
-  type        = string
-  default     = <<-EOF
-    #!/bin/bash
-    apt-get update
-    apt-get install -y curl wget git
-    EOF
-}
