@@ -4,25 +4,25 @@ set -e
 
 echo "🚀 Starting Hetzner Cloud GitHub Runner deployment..."
 
-if ! command -v terraform &> /dev/null; then
-    echo "❌ Error: Terraform is not installed!"
+if ! command -v tofu &> /dev/null; then
+    echo "❌ Error: OpenTofu is not installed!"
     exit 1
 fi
 
-echo "🔧 Initializing Terraform..."
-terraform init
+echo "🔧 Initializing OpenTofu..."
+tofu init
 
 echo "🔍 Planning deployment..."
-terraform plan
+tofu plan
 
 echo "🏗️  Deploying infrastructure..."
-terraform apply -auto-approve
+tofu apply -auto-approve
 
 echo ""
 echo "✅ Deployment complete!"
 echo ""
 echo "📋 Server Information:"
-terraform output -json | jq -r '
+tofu output -json | jq -r '
   "Server ID: " + .server_id.value + "\n" +
   "Server Name: " + .server_name.value + "\n" +
   "Public IP: " + .server_public_ip.value + "\n" +
@@ -32,4 +32,4 @@ terraform output -json | jq -r '
 
 echo ""
 echo "🔗 To connect to your server:"
-echo "$(terraform output -raw ssh_connection)"
+echo "$(tofu output -raw ssh_connection)"

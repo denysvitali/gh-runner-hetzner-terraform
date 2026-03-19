@@ -4,18 +4,18 @@ set -e
 
 echo "🛑 Starting Hetzner Cloud GitHub Runner cleanup..."
 
-if [ ! -f "terraform.tfstate" ]; then
-    echo "❌ No terraform.tfstate file found. Nothing to destroy."
+if [ ! -f "tofu.tfstate" ]; then
+    echo "❌ No tofu.tfstate file found. Nothing to destroy."
     exit 0
 fi
 
-if ! command -v terraform &> /dev/null; then
-    echo "❌ Error: Terraform is not installed!"
+if ! command -v tofu &> /dev/null; then
+    echo "❌ Error: OpenTofu is not installed!"
     exit 1
 fi
 
 echo "🔍 Planning destruction..."
-terraform plan -destroy
+tofu plan -destroy
 
 echo ""
 read -p "⚠️  Are you sure you want to destroy the infrastructure? (yes/no): " confirm
@@ -26,7 +26,7 @@ if [ "$confirm" != "yes" ]; then
 fi
 
 echo "🗑️  Destroying infrastructure..."
-terraform destroy -auto-approve
+tofu destroy -auto-approve
 
 echo ""
 echo "✅ Infrastructure destroyed successfully!"

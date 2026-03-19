@@ -1,10 +1,12 @@
-# Terraform files
+# OpenTofu files
 *.tfstate
 *.tfstate.*
 *.tfvars
 *.tfvars.json
 .terraform/
+.tofu/
 .terraform.lock.hcl
+.tofu.lock.hcl
 crash.log
 crash.*.log
 
